@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="index-right">
-            <slide-show :slides="slides"></slide-show>
+            <slide-show :slides="slides" :inv="slidespeed" @onchange="dosomething"></slide-show>
             <div class="index-board-list">
                 <div class="index-board-item"
                      v-for="(item, index) in boardList"
@@ -62,8 +62,14 @@
                       console.log(err)
                   })*/
         },
+        methods:{
+            dosomething(index){
+                console.log(index);
+            }
+        },
         data(){
             return {
+                slidespeed:2000,
                 slides: [
                     {
                         src: require('../assets/slideShow/pic1.jpg'),
