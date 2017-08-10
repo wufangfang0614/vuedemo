@@ -6,16 +6,16 @@
                      <img src="../assets/logo.png">
                  </router-link>
                  <div class="head-nav">
-                   <!--  <ul class="nav-list">
-                         <li> {{ username }}</li>
-                         <li v-if="username!== ''" class="nav-pile">|</li>
-                         <li v-if="username!== ''" @click="quit">退出</li>
-                         <li v-if="username=== ''" @click="logClick">登录</li>
+                     <ul class="nav-list">
+                         <!--<li> {{ username }}</li>
                          <li class="nav-pile">|</li>
-                         <li v-if="username=== ''" @click="regClick">注册</li>
-                         <li v-if="username=== ''" class="nav-pile">|</li>
-                         <li @click="aboutClick">关于</li>
-                     </ul>-->
+                         <li @click="quit">退出</li>-->
+                         <li @click="showDialog('isShowLogDialog')">登录</li>
+                         <li class="nav-pile">|</li>
+                         <li @click="showDialog('isShowRegDialog')">注册</li>
+                         <li  class="nav-pile">|</li>
+                         <li @click="showDialog('isShowAboutDialog')">关于</li>
+                     </ul>
                  </div>
              </div>
          </div>
@@ -27,6 +27,15 @@
          <div class="app-foot">
              <p>© 2016 fishenal MIT</p>
          </div>
+         <my-dialog :isShow="isShowLogDialog" @on-close="hideDialog('isShowLogDialog')">
+             <log-form></log-form>
+         </my-dialog>
+         <my-dialog :isShow="isShowRegDialog" @on-close="hideDialog('isShowRegDialog')">
+             <reg-form></reg-form>
+         </my-dialog>
+         <my-dialog :isShow="isShowAboutDialog" @on-close="hideDialog('isShowAboutDialog')">
+             <p>本报告在调研数据的基础上，采用定性与定量相结合的方式深入分析了专车市场发展的驱动因素与阻碍因素、专车市场背后的产业格局、专车企业的竞争格局、用户对专车市场的依赖程度、专车对其他交通工具运力的补充效应等，通过这五个章节的研究反映专车市场的发展态势和面临的问题。报告力求客观、深入、准确地反映中国专车市场发展情况，为政府、企事业单位和社会各界提供决策依据。</p>
+         </my-dialog>
          <!--<my-dialog :is-show="isShowAboutDialog" @on-close="closeDialog('isShowAboutDialog')">
              <p>本报告在调研数据的基础上，采用定性与定量相结合的方式深入分析了专车市场发展的驱动因素与阻碍因素、专车市场背后的产业格局、专车企业的竞争格局、用户对专车市场的依赖程度、专车对其他交通工具运力的补充效应等，通过这五个章节的研究反映专车市场的发展态势和面临的问题。报告力求客观、深入、准确地反映中国专车市场发展情况，为政府、企事业单位和社会各界提供决策依据。 </p>
          </my-dialog>
@@ -42,7 +51,32 @@
  </template>
 
  <script>
+     import dialog from '../components/base/dialog'
+     import logForm from '../components/logform'
+     import regForm from '../components/regform'
+     export default{
+         components: {
+             myDialog: dialog,
+             logForm,
+             regForm
+         },
+         data(){
+             return {
+                 isShowLogDialog: false,
+                 isShowRegDialog: false,
+                 isShowAboutDialog: false
+             }
+         },
+         methods:{
+             showDialog(param){
+                 this[param] = true
+             },
+             hideDialog(param){
+                 this[param] = false
+             }
+         }
 
+     }
  </script>
 
  <style>
